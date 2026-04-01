@@ -1,53 +1,51 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/18 17:21:32 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/01 15:19:41 by finoment         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
-#include "push_swap.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "push_swap.h"
+
+void	print_stack(t_list *stack)
+{
+	t_list *tmp = stack;
+	while (tmp)
+	{
+		printf("Valeur: %d | Adresse: %p\n", *(int *)tmp->content, tmp->content);
+		tmp = tmp->next;
+	}
+}
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int	i;
-	static char *arg;
-	
+	t_list	*stack;
 
+	// Initialisation des stacks et bench
 	data.stack_a = NULL;
-    data.stack_b = NULL;
-    data.bench.total_ops = 0;
-    data.bench.bench_mode = 0;
+	data.stack_b = NULL;
+	data.bench.total_ops = 0;
+	data.bench.bench_mode = 0;
+	data.bench.strategy = 0;
 
 	if (argc < 2)
-		return (0);
-	i = 1;
-	while (i < argc)
 	{
-		if (ft_strncmp(argv[i], "--bench", 8) == 0)
-			data.bench.bench_mode = 1;
-		// else if (ft_strncmp(argv[i], "--simple", 9) == 0)
-		// 	data.algo = 1;
-		// else if (ft_strncmp(argv[i], "--medium", 9) == 0)
-		// 	data.algo = 2;
-		// else if (ft_strncmp(argv[i], "--complex", 10) == 0)
-		// 	data.algo = 3;
-		// else if (ft_strncmp(argv[i], "--adaptive", 11) == 0)
-		// 	data.algo = 4;
-		else
-			i++;
+		printf("Usage: %s <numbers> [flags]\n", argv[0]);
+		return (0);
 	}
-	// while (i < argc)
-	// {
-	// 	if ()
-	// 	arg = ft_strjoin(argv[i], argv[i + 1]);
-	// }
 
+	// Parsing + validation
+	stack = parsing(argc, argv, &data);
+	if (!stack)
+	{
+		// parsing a échoué
+		return (1);
+	}
+	data.stack_a = stack;
+
+	printf("Stack construite:\n");
+	print_stack(data.stack_a);
+
+	// Ici tu pourrais appeler ton algo push_swap
+
+	// Nettoyage mémoire
+	ft_lstclear(&data.stack_a, free);
+
+	return (0);
 }

@@ -6,25 +6,17 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 07:45:15 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/01 15:25:42 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:07:51 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 #ifndef STRATEGY
-#define STRATEGY = 1;
+#define STRATEGY 1
 #endif
-#include "libft.h"
-
-typedef struct	s_data 
-{
-	t_list	*stack_a;
-	t_list	*stack_b;
-	s_bench	bench;
-}				t_data;
+#include "libft/libft.h"
+#include <stdio.h>
 
 typedef struct	bench
 {
@@ -33,6 +25,15 @@ typedef struct	bench
 	int	total_ops;
 	int	bench_mode;
 }				s_bench;
+
+typedef struct	s_data 
+{
+	t_list	*stack_a;
+	t_list	*stack_b;
+	s_bench	bench;
+}				t_data;
+
+
 
 t_list	*ft_tolist(char **str);
 void	sa(t_data *data);
@@ -48,6 +49,7 @@ void	rrb(t_data *data);
 void	rrr(t_data *data);
 float	ft_compute_disorder(t_data *data);
 void	ft_selection_sort(t_data *data);
+t_list	*parsing(int argc, char **argv, t_data *data);
 
 
 void	print_op(char *op, t_data *data);

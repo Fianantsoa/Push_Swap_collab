@@ -6,100 +6,132 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 13:10:44 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/01 15:20:33 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/01 18:13:11 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-int	is_valid(char *argv)
+static long	ft_atol(char *str)
 {
-	if (is_num(argv))
-	{
-		if(is_integer_limits(argv));
-
-	}
-	return (0);
-}
-int	ft_atol(char *argv)
-{
-	int		i;
-	int		sign;
 	long	result;
+	int	i;
+	int	sign;
 
 	i = 0;
-	sign = 1;
 	result = 0;
-	while ((argv[i] >= 9 && argv[i] <= 13) || argv[i] == 32)
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 		i++;
-	if (argv[i] == '-' || argv[i] == '+')
-	{
-		if (argv[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
 			sign = -1;
-		i++;
-	}
-	while (argv[i] >= '0' && argv[i] <= '9')
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = result * 10 + (argv[i] - '0');
+		result = result * 10 + (str[i++] - '0');
+	}
+	return (sign * result);
+}
+
+static int	has_duplicates(char **argv)
+{
+	int		i;
+	int		j;
+	long	value_i;
+
+	i = 0;
+	while (argv[i])
+	{
+		value_i = ft_atol(argv[i]);
+		j = i + 1;
+		while (argv[j])
+		{
+			if (value_i == ft_atol(argv[j]))
+				return (0);
+			j++;
+		}
 		i++;
 	}
-	result = result * sign;
-	if (result > 2147483647 || result < -2147483648)
-		return (0);
 	return (1);
 }
 
-int is_integer_limits(char *argv)
-{
-	int	i;
-	long	i;
-	
-	i = 0;
-	while (argv[i])
-	{
-		if (argv[i] == ' ')
-			i++;
-		if (argv[i] == '-')
-			i++;
-		if (argv[i])
-			i += 0;  // il n'y a rien ici avant
-	}
-}
-int	is_num(char *argv)
+static int	is_digit_str(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	if (s[i] == '-' || s[i] == '+')
+		i++;
+	if (!s[i])
+		return (0);
+	while (s[i])
 	{
-		if (argv[i] == ' ')
-			i++;
-		else if (argv[i] == '-')
-			i++;
-		else if ((argv[i] >= '0' && argv[i] <= '9'))
-			i++;
-		else
+		if (s[i] < '0' || s[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static int	is_valid_int(char *str)
+{
+	long long	res;
+	int			i;
+	int			sign;
+
+	if (!is_digit_str(str))
+		return (0);
+	i = 0;
+	res = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+		if (str[i++] == '-')
+			sign = -1;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res = res * 10 + (str[i++] - '0');
+		if ((res * sign) > 2147483647 || (res * sign) < -2147483648)
 			return (0);
 	}
 	return (1);
 }
 
-void is_flag(char *argv, t_data *data)
+static int	is_valid(char **argv)
 {
-	if (ft_strcmp(argv, "--bench") == 0)
+	int	i;
+
+	i =0;
+	while (argv[i])
+	{
+		if (!is_valid_int(argv[i]))
+			return(0);
+		i++;
+	}
+	if (!has_duplicates(argv))
+		return(0);
+	return (1);
+}
+
+static void is_flag(char *argv, t_data *data)
+{
+	if (ft_strncmp(argv, "--bench", 7) == 0)
 		data->bench.bench_mode = 1;
-	else if (ft_strcmp(argv, "--adaptive") == 0)
+	else if (ft_strncmp(argv, "--adaptive", 10) == 0)
 		data->bench.strategy = 1;
-	else if (ft_strcmp(argv, "--simple") == 0)
+	else if (ft_strncmp(argv, "--simple", 8) == 0)
 		data->bench.strategy = 2;
-	else if (ft_strcmp(argv, "--medium") == 0)
+	else if (ft_strncmp(argv, "--medium", 8) == 0)
 		data->bench.strategy = 3;
-	else if (ft_strcmp(argv, "--complex") == 0)
+	else if (ft_strncmp(argv, "--complex", 9) == 0)
 		data->bench.strategy = 4;
 	else
-		write (2, "Error", 6);
+	write (2, "Error", 6);
+	{
 		write (2, "\n", 2);
+	}
 }
 
 static char	*join_args(int argc, char **argv, t_data *data)
@@ -126,20 +158,22 @@ static char	*join_args(int argc, char **argv, t_data *data)
 	return (str_arg);
 }
 
-
 t_list *parsing(int argc, char **argv, t_data *data)
 {
 	char	*str_arg;
 	char	**new_arg;
 	
-	new_arg = join_arg(argc, argv, data);
+	str_arg = join_args(argc, argv, data);
+	if (!str_arg)
+		return (NULL);
+	new_arg = ft_split(str_arg, ' ');
 	if (!new_arg)
-		return ;
+		return (NULL);
 	if (is_valid(new_arg))
 	{
-		new_arg = ft_split(new_arg, ' ');
 		return (ft_tolist(new_arg));
 	}
 	write (2, "Error", 6);
 	write (2, "\n", 2);
+	return(NULL);
 }
