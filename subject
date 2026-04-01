@@ -1,0 +1,91 @@
+I. The Operations (The "Push_swap" Model)
+
+Instead of standard array swaps, you must use these specific moves:
+
+    Push (pa, pb): Move the top element from one stack to another.
+
+    Swap (sa, sb, ss): Swap the top two elements.
+
+    Rotate (ra, rb, rr): Shift all elements up; the top becomes the bottom.
+
+    Reverse Rotate (rra, rrb, rrr): Shift all elements down; the bottom becomes the top.
+
+II. The Complexity Requirements
+
+You must implement four distinct strategies and select them at runtime using flags (e.g., --simple, --medium).
+Strategy	Complexity	Suggested Algorithms
+Simple	O(n2)	Selection Sort (find min, push to b) or Bubble Sort.
+Medium	O(nn​)	Chunk-based sorting (divide stack into n​ ranges).
+Complex	O(nlogn)	Radix Sort (using bits) or Quicksort partitioning.
+Adaptive	Variable	Uses the Disorder Metric to pick one of the above.
+III. The Disorder Metric (Mandatory)
+
+Before moving any numbers, you must calculate how "messy" the stack is.
+
+    Formula: Total PairsMistakes​.
+
+    A "mistake" is whenever a larger number appears before a smaller number (a[i]>a[j] where i<j).
+
+    Thresholds for Adaptive Mode:
+
+        Disorder < 0.2: Use O(n2).
+
+        0.2 ≤ Disorder < 0.5: Use O(nn​).
+
+        Disorder ≥ 0.5: Use O(nlogn).
+
+IV. What to Learn to Accomplish This
+1. Data Structures (Linked Lists vs Arrays)
+
+While you can use arrays, Doubly Linked Lists are often easier for Push_swap because "rotating" a list is just a pointer swap, and "pushing" is just adding/removing a node.
+2. Algorithmic Thinking
+
+You aren't just sorting; you are minimizing the number of moves.
+
+    For O(n2): Learn how to efficiently find the smallest number and bring it to the top using the shortest path (either ra or rra).
+
+    For O(nn​): Learn about "Chunks." You push numbers within a certain range to stack b first to keep them roughly sorted before pushing them back.
+
+3. Bit Manipulation (For Radix Sort)
+
+If you choose Radix Sort for your O(nlogn) strategy, you will need to learn how to check the i-th bit of a number ((num >> i) & 1) to decide whether to push it to stack b or rotate it.
+4. Error Handling and Parsing
+
+Your program must handle:
+
+    Non-integer arguments.
+
+    Duplicates (e.g., ./push_swap 1 2 1 should trigger an Error).
+
+    Integers outside the INT_MIN to INT_MAX range.
+
+V. Recommended Roadmap
+
+    Parsing: Write a robust parser that converts argv into a stack (Linked List) and checks for errors.
+
+    Operations: Implement the 11 basic operations (sa, pb, ra, etc.).
+
+    Disorder Function: Implement the compute_disorder logic exactly as described in the subject.
+
+    The Algorithms: Start with the Simple O(n2) version, then move to Complex (Radix is usually the easiest O(nlogn) to implement with stacks).
+
+    Benchmark Mode: Implement the --bench flag to output statistics to stderr.
+
+<!-- 1. The Winner: Selection Sort / Min-Max Extraction
+This is the most "cost-effective" for move counts. Instead of trying to sort in place, you find the absolute smallest (or largest) number in Stack A and move it to Stack B.
+
+How it works:
+
+Find the smallest number in Stack A.
+
+Calculate the shortest path to bring it to the top (ra if it's in the top half, rra if it's in the bottom half).
+
+Push it to Stack B (pb).
+
+Repeat until only 3 numbers are left in Stack A.
+
+Sort the remaining 3 numbers with a hardcoded "Sort 3" function (max 2 moves).
+
+Push everything back from B to A (pa).
+
+Why it's best: It is extremely predictable. For 5 numbers, you will almost always stay under the 12-move limit required for full points. -->
