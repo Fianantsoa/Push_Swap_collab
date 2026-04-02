@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42antananari    +#+  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:21:32 by erakotom          #+#    #+#             */
-/*   Updated: 2026/03/19 00:55:49 by erakotom         ###   ########.fr       */
+/*   Updated: 2026/04/02 15:05:20 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	
 	data.stack_a = parsing(argc, argv, &data);
+	// index_stack(&data);
+	
 	if (!data.stack_a)
 		return (1);
 	data.bench.disorder = ft_compute_disorder(&data);
@@ -50,7 +52,6 @@ int	main(int argc, char **argv)
 	print_stack(data.stack_a);
 	if (data.bench.bench_mode)
 		ft_print_bench(&data);
-	
 
 	ft_lstclear(&data.stack_a, free);
 	return (0);

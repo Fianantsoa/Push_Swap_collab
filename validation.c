@@ -115,47 +115,59 @@ int	is_valid(char **argv)
 	return (1);
 }
 
-void is_flag(char *argv, t_data *data)
+void	flag_search(char *argv, t_data *data)
 {
-	if (ft_strncmp(argv, "--bench", 7) == 0)
-		data->bench.bench_mode = 1;
-	else if (ft_strncmp(argv, "--adaptive", 10) == 0)
-		data->bench.strategy = "Adaptive";
-	else if (ft_strncmp(argv, "--simple", 8) == 0)
-		data->bench.strategy = "Simple";
-	else if (ft_strncmp(argv, "--medium", 8) == 0)
-		data->bench.strategy = "Medium";
-	else if (ft_strncmp(argv, "--complex", 9) == 0)
-		data->bench.strategy = "Complex";
-	else
+	if (ft_strnstr(argv, "--bench", ft_strlen(argv)) != NULL)
 	{
-		write (2, "Error", 6);
-		write (2, "\n", 2);
+		data->bench.bench_mode = 1;
+		ft_memset(ft_strnstr(argv, "--bench", ft_strlen(argv)), ' ', 7);
 	}
+	if (ft_strnstr(argv, "--simple", ft_strlen(argv)) != NULL)
+	{
+		data->bench.strategy = "Simple";
+		ft_memset(ft_strnstr(argv, "--simple", ft_strlen(argv)), ' ', 8);
+	}
+	if (ft_strnstr(argv, "--medium", ft_strlen(argv)) != NULL)
+	{
+		data->bench.strategy = "Medium";
+		ft_memset(ft_strnstr(argv, "--medium", ft_strlen(argv)), ' ', 8);
+	}
+	if (ft_strnstr(argv, "--complex", ft_strlen(argv)) != NULL)
+	{
+		data->bench.strategy = "Complex";
+		ft_memset(ft_strnstr(argv, "--complex", ft_strlen(argv)), ' ', 9);
+	}
+	if (ft_strnstr(argv, "--adaptive", ft_strlen(argv)) != NULL)
+	{
+		data->bench.strategy = "Adaptive";
+		ft_memset(ft_strnstr(argv, "--adaptive", ft_strlen(argv)), ' ', 10);
+	}
+}
+
+char *ft_strjoin_with_space(char *s1, char *s2)
+{
+    char *tmp;
+    char *result;
+
+    tmp = ft_strjoin(s1, s2);
+    free(s1);
+    result = ft_strjoin(tmp, " ");
+    free(tmp);
+    return (result);
 }
 
 static char	*join_args(int argc, char **argv, t_data *data)
 {
-	char	*str_arg;
-	char	*tmp;
-	int	i;
+	char    *str_arg;
+    int     i;
 
-	str_arg = ft_strdup("");
-	i = 1;
-	while (i < argc)
-	{
-		if (argv[i][0] == '\0')
-			return (free(str_arg), NULL);
-		if (argv[i][0] == '-' && argv[i][1] == '-')
-			is_flag(argv[i], data);
-		else
-		{
-		tmp = ft_strjoin(str_arg, argv[i]);
-		free(str_arg);
-		str_arg = ft_strjoin(tmp, " ");
-		free(tmp);
-		}
-		i++;
+    str_arg = ft_strdup("");
+    i = 1;
+    while (i < argc)
+    {
+        flag_search(argv[i], data);
+        str_arg = ft_strjoin_with_space(str_arg, argv[i]);
+        i++;
 	}
 	return (str_arg);
 }

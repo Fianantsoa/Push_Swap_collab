@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42antananari    +#+  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 07:45:15 by erakotom          #+#    #+#             */
-/*   Updated: 2026/03/19 00:50:25 by erakotom         ###   ########.fr       */
+/*   Updated: 2026/04/02 12:33:02 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # define PUSH_SWAP_H
 
 #include "libft.h"
-
-
+#include <stdio.h>
 
 typedef struct	bench
 {
@@ -72,5 +71,7 @@ t_list *parsing(int argc, char **argv, t_data *data);
 void	print_op(char *op, t_data *data);
 void	ft_print_bench(t_data *data);
 void    ft_algo_selector(t_data *data);
+
+void	index_stack(t_data *data);
 
 #endif
