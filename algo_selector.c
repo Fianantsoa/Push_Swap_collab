@@ -1,0 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algo_selector.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026-04-01 19:50:04 by erakotom          #+#    #+#             */
+/*   Updated: 2026-04-01 19:50:04 by erakotom         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+
+void	ft_adaptive_selector(t_data *data)
+{
+	if (data->bench.disorder < 20)
+	{
+		data->bench.algorithm = 1;
+		data->bench.algo = "O(n²)";
+	}
+	else if (data->bench.disorder >= 20 && data->bench.disorder < 50)
+	{
+		data->bench.algorithm = 2;
+		data->bench.algo = "O(n√n)";
+	}
+	else if (data->bench.disorder >= 50)
+	{
+		data->bench.algorithm = 3;
+		data->bench.algo = "O(n log n)";
+	}
+}
+
+void	ft_algo_selector(t_data *data)
+{
+	if(ft_strncmp(data->bench.strategy, "Simple", 7) == 0)
+	{
+		data->bench.algorithm = 1;
+		data->bench.algo = "O(n²)";
+	}
+	else if(ft_strncmp(data->bench.strategy, "Medium", 7) == 0)
+	{
+		data->bench.algorithm = 2;
+		data->bench.algo = "O(n√n)";
+	}
+	else if(ft_strncmp(data->bench.strategy, "Complex", 8) == 0)
+	{
+		data->bench.algorithm = 3;
+		data->bench.algo = "O(n log n)";
+	}
+	else
+	{
+		ft_adaptive_selector(data);
+	}
+}
+
+

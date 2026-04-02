@@ -29,5 +29,5 @@ float   ft_compute_disorder(t_data *data)
 			mistakes++;;
 		tmp = tmp->next;
 	}
-	return ((float)mistakes / pairs);
+	return (((float)mistakes / pairs) * 100);
 }

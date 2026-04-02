@@ -25,6 +25,7 @@ void	sa(t_data *data)
 	first->next = second->next;
 	second->next = first;
 	data->stack_a = second;
+	data->operations.sa++;
 	print_op("sa", data);
 }
 
@@ -41,6 +42,7 @@ void	sb(t_data *data)
 	first->next = second->next;
 	second->next = first;
 	data->stack_b = second;
+	data->operations.sb++;
 	print_op("sb", data);
 }
 
@@ -48,6 +50,7 @@ void	ss(t_data *data)
 {
 	sa(data);
 	sb(data);
+	data->operations.ss++;
 	print_op("ss", data);
 }
 
@@ -60,7 +63,8 @@ void	pa(t_data *data)
 	tmp = data->stack_b;
 	data->stack_b = data->stack_b->next;
 	tmp->next = NULL;
-	ft_lstadd_front(data->stack_a, tmp);
+	ft_lstadd_front(&data->stack_a, tmp);
+	data->operations.pa++;
 	print_op("pa", data);
 }
 
@@ -73,7 +77,8 @@ void	pb(t_data *data)
 	tmp = data->stack_a;
 	data->stack_a = data->stack_a->next;
 	tmp->next = NULL;
-	ft_lstadd_front(data->stack_b, tmp);
+	ft_lstadd_front(&data->stack_b, tmp);
+	data->operations.pb++;
 	print_op("pb", data);
 }
 
@@ -86,7 +91,8 @@ void	ra(t_data *data)
 	tmp = data->stack_a;
 	data->stack_a = data->stack_a->next;
 	tmp->next = NULL;
-	ft_lstadd_back(data->stack_a, tmp);
+	ft_lstadd_back(&data->stack_a, tmp);
+	data->operations.ra++;
 	print_op("ra", data);
 }
 
@@ -99,14 +105,16 @@ void	rb(t_data *data)
 	tmp = data->stack_b;
 	data->stack_b = data->stack_b->next;
 	tmp->next = NULL;
-	ft_lstadd_back(data->stack_b, tmp);
+	ft_lstadd_back(&data->stack_b, tmp);
+	data->operations.rb++;
 	print_op("rb", data);
 }
 
 void	rr(t_data *data)
 {
-	ra(data->stack_a);
-	rb(data->stack_b);
+	ra(data);
+	rb(data);
+	data->operations.rr++;
 	print_op("rr", data);
 }
 
@@ -125,7 +133,8 @@ void	rra(t_data *data)
 	}
 	before_last->next = NULL;
 
-	ft_lstadd_front(data->stack_a, last);
+	ft_lstadd_front(&data->stack_a, last);
+	data->operations.rra++;
 	print_op("rra", data);
 }
 
@@ -144,13 +153,15 @@ void	rrb(t_data *data)
 	}
 	before_last->next = NULL;
 
-	ft_lstadd_front(data->stack_b, last);
+	ft_lstadd_front(&data->stack_b, last);
+	data->operations.rrb++;
 	print_op("rrb", data);
 }
 void	rrr(t_data *data)
 {
-	rra(data->stack_a);
-	rrb(data->stack_b);
+	rra(data);
+	rrb(data);
+	data->operations.rrr++;
 	print_op("rrr", data);
 }
 

@@ -1,51 +1,57 @@
-#include <stdio.h>
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erakotom <erakotom@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/18 17:21:32 by erakotom          #+#    #+#             */
+/*   Updated: 2026/03/19 00:55:49 by erakotom         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "push_swap.h"
+#include <stdio.h>
+
 
 void	print_stack(t_list *stack)
 {
 	t_list *tmp = stack;
 	while (tmp)
 	{
-		printf("Valeur: %d | Adresse: %p\n", *(int *)tmp->content, tmp->content);
+		printf("Valeur: %d\n", *(int *)tmp->content);
 		tmp = tmp->next;
 	}
+}
+
+void	init_data(t_data *data)
+{
+	ft_memset(data, 0, sizeof(t_data));
+	data->bench.strategy = "Adaptive";
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	t_list	*stack;
-
-	// Initialisation des stacks et bench
-	data.stack_a = NULL;
-	data.stack_b = NULL;
-	data.bench.total_ops = 0;
-	data.bench.bench_mode = 0;
-	data.bench.strategy = 0;
 
 	if (argc < 2)
-	{
-		printf("Usage: %s <numbers> [flags]\n", argv[0]);
 		return (0);
-	}
-
-	// Parsing + validation
-	stack = parsing(argc, argv, &data);
-	if (!stack)
-	{
-		// parsing a échoué
+	init_data(&data);
+	
+	data.stack_a = parsing(argc, argv, &data);
+	if (!data.stack_a)
 		return (1);
-	}
-	data.stack_a = stack;
+	data.bench.disorder = ft_compute_disorder(&data);
+	ft_algo_selector(&data);
 
-	printf("Stack construite:\n");
+	
+	ft_selection_sort(&data);
 	print_stack(data.stack_a);
+	if (data.bench.bench_mode)
+		ft_print_bench(&data);
+	
 
-	// Ici tu pourrais appeler ton algo push_swap
-
-	// Nettoyage mémoire
 	ft_lstclear(&data.stack_a, free);
-
 	return (0);
 }

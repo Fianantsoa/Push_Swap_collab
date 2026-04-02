@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
+/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/30 13:10:44 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/01 18:13:11 by finoment         ###   ########.fr       */
+/*   Created: 2026-03-30 13:10:44 by erakotom          #+#    #+#             */
+/*   Updated: 2026-03-30 13:10:44 by erakotom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 
-static long	ft_atol(char *str)
+long	ft_atol(char *str)
 {
 	long	result;
 	int	i;
@@ -34,7 +34,7 @@ static long	ft_atol(char *str)
 	return (sign * result);
 }
 
-static int	has_duplicates(char **argv)
+int	has_duplicates(char **argv)
 {
 	int		i;
 	int		j;
@@ -48,12 +48,12 @@ static int	has_duplicates(char **argv)
 		while (argv[j])
 		{
 			if (value_i == ft_atol(argv[j]))
-				return (0);
+				return (1);
 			j++;
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static int	is_digit_str(char *s)
@@ -74,7 +74,7 @@ static int	is_digit_str(char *s)
 	return (1);
 }
 
-static int	is_valid_int(char *str)
+int	is_valid_int(char *str)
 {
 	long long	res;
 	int			i;
@@ -99,7 +99,7 @@ static int	is_valid_int(char *str)
 	return (1);
 }
 
-static int	is_valid(char **argv)
+int	is_valid(char **argv)
 {
 	int	i;
 
@@ -110,26 +110,26 @@ static int	is_valid(char **argv)
 			return(0);
 		i++;
 	}
-	if (!has_duplicates(argv))
+	if (has_duplicates(argv))
 		return(0);
 	return (1);
 }
 
-static void is_flag(char *argv, t_data *data)
+void is_flag(char *argv, t_data *data)
 {
 	if (ft_strncmp(argv, "--bench", 7) == 0)
 		data->bench.bench_mode = 1;
 	else if (ft_strncmp(argv, "--adaptive", 10) == 0)
-		data->bench.strategy = 1;
+		data->bench.strategy = "Adaptive";
 	else if (ft_strncmp(argv, "--simple", 8) == 0)
-		data->bench.strategy = 2;
+		data->bench.strategy = "Simple";
 	else if (ft_strncmp(argv, "--medium", 8) == 0)
-		data->bench.strategy = 3;
+		data->bench.strategy = "Medium";
 	else if (ft_strncmp(argv, "--complex", 9) == 0)
-		data->bench.strategy = 4;
+		data->bench.strategy = "Complex";
 	else
-	write (2, "Error", 6);
 	{
+		write (2, "Error", 6);
 		write (2, "\n", 2);
 	}
 }
@@ -144,6 +144,8 @@ static char	*join_args(int argc, char **argv, t_data *data)
 	i = 1;
 	while (i < argc)
 	{
+		if (argv[i][0] == '\0')
+			return (free(str_arg), NULL);
 		if (argv[i][0] == '-' && argv[i][1] == '-')
 			is_flag(argv[i], data);
 		else
@@ -158,22 +160,41 @@ static char	*join_args(int argc, char **argv, t_data *data)
 	return (str_arg);
 }
 
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i++]);
+	}
+	free(tab);
+}
+
 t_list *parsing(int argc, char **argv, t_data *data)
 {
 	char	*str_arg;
 	char	**new_arg;
+	t_list	*stack_a;
 	
 	str_arg = join_args(argc, argv, data);
 	if (!str_arg)
+	{
+		write(2, "Error\n", 6);
 		return (NULL);
+	}
 	new_arg = ft_split(str_arg, ' ');
+	free(str_arg);
 	if (!new_arg)
 		return (NULL);
 	if (is_valid(new_arg))
 	{
-		return (ft_tolist(new_arg));
+		stack_a = ft_tolist(new_arg);
+		free_tab(new_arg);
+		return (stack_a);
 	}
-	write (2, "Error", 6);
-	write (2, "\n", 2);
+	free_tab(new_arg);
+	write (2, "Error\n", 7);
 	return(NULL);
 }

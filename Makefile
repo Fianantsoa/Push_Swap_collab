@@ -2,10 +2,10 @@ NAME = push_swap
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 
-SRC = main.c ft_tolist.c validation.c
+SRC = main.c ft_tolist.c validation.c compute_disorder.c simple.c bench.c ft_swap.c algo_selector.c
 OBJ = $(SRC:.c=.o)
 
-LIBFT = libft/libft.a
+LIBFT = libft.a
 
 all: $(NAME)
 
