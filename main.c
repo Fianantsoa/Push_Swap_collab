@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/18 17:21:32 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/02 15:05:20 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:06:20 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ int	main(int argc, char **argv)
 	init_data(&data);
 	
 	data.stack_a = parsing(argc, argv, &data);
-	// index_stack(&data);
-	
+	/* medium teste
+	medium(&data);
+	print_stack(data.stack_a);
+	*/
 	if (!data.stack_a)
 		return (1);
 	data.bench.disorder = ft_compute_disorder(&data);

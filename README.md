@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by finoment.*
+*This project has been created as part of the 42 curriculum by erakotom, finoment.*
 
 ## Description
 
@@ -112,7 +112,7 @@ AI is used solely as an educational tool to understand `push_swap` logic and str
 * Assists in understanding algorithm optimization
 * Clarifies project constraints and edge cases
 
-All code is manually implemented by the student.
+All code is manually implemented by the students.
 
 ---
 

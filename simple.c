@@ -44,17 +44,21 @@ static void	placement(t_data *data, int min_position)
 
 	size = ft_lstsize(data->stack_a);
 	if (min_position <= size / 2)
+	{
 		while (min_position > 0)
 		{
 			ra(data);
 			min_position--;
 		}
+	}
 	else
+	{
 		while (min_position < size)
 		{
 			rra(data);
 			min_position++;
 		}
+	}
 }
 
 static void	simple_sort(t_data *data)
@@ -63,7 +67,7 @@ static void	simple_sort(t_data *data)
 	int	b;
 	int	c;
 
-	if (ft_lstsize(data->stack_a) == 2 && *(int *)(data->stack_a->content) > 
+	if (ft_lstsize(data->stack_a) == 2 && *(int *)(data->stack_a->content) >
 		*(int *)(data->stack_a->next->content))
 		return (sa(data));
 	if (ft_lstsize(data->stack_a) < 3)
@@ -84,6 +88,8 @@ static void	simple_sort(t_data *data)
 void	ft_selection_sort(t_data *data)
 {
 	if (!data->stack_a)
+		return ;
+	if (data->bench.disorder == 0.00)
 		return ;
 	while (ft_lstsize(data->stack_a) > 3)
 	{

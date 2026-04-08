@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bench.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
+/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/27 12:38:25 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/08 16:13:11 by finoment         ###   ########.fr       */
+/*   Created: 2026-03-27 12:38:25 by erakotom          #+#    #+#             */
+/*   Updated: 2026-03-27 12:38:25 by erakotom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,22 @@ void	ft_putpercent(float n)
 	write(2, "%", 2);
 }
 
-void	ft_print_bench(t_data *data)
+void	ft_print_bench_ops2(t_data *data)
 {
-	ft_putstr_fd("[bench] disorder: ", 2);
-	ft_putpercent(data->bench.disorder);
+	ft_putstr_fd("[bench] ", 2);
+	ft_putstr_fd("ra: ", 2);
+	ft_putnbr_fd(data->operations.ra, 2);
+	ft_putstr_fd(" rb: ", 2);
+	ft_putnbr_fd(data->operations.rb, 2);
+	ft_putstr_fd(" rr: ", 2);
+	ft_putnbr_fd(data->operations.rr, 2);
+	ft_putstr_fd(" rra: ", 2);
+	ft_putnbr_fd(data->operations.rra, 2);
+	ft_putstr_fd(" rrb: ", 2);
+	ft_putnbr_fd(data->operations.rrb, 2);
+	ft_putstr_fd(" rrr: ", 2);
+	ft_putnbr_fd(data->operations.rrr, 2);
 	write(2, "\n", 2);
-	ft_putstr_fd("[bench] strategy: ", 2);
-	ft_putstr_fd(data->bench.strategy, 2);
-	write(2, " / ", 4);
-	ft_putstr_fd(data->bench.algo, 2);
-	write(2, "\n", 2);
-	ft_putstr_fd("[bench] total_ops: ", 2);
-	ft_putnbr_fd(data->bench.total_ops, 2);
-	write(2, "\n", 2);
-	ft_print_bench_ops(data);
 }
 
 void	ft_print_bench_ops(t_data *data)
@@ -63,18 +65,21 @@ void	ft_print_bench_ops(t_data *data)
 	ft_putstr_fd(" pb: ", 2);
 	ft_putnbr_fd(data->operations.pb, 2);
 	write(2, "\n", 2);
-	ft_putstr_fd("[bench] ", 2);
-	ft_putstr_fd("ra: ", 2);
-	ft_putnbr_fd(data->operations.ra, 2);
-	ft_putstr_fd(" rb: ", 2);
-	ft_putnbr_fd(data->operations.rb, 2);
-	ft_putstr_fd(" rr: ", 2);
-	ft_putnbr_fd(data->operations.rr, 2);
-	ft_putstr_fd(" rra: ", 2);
-	ft_putnbr_fd(data->operations.rra, 2);
-	ft_putstr_fd(" rrb: ", 2);
-	ft_putnbr_fd(data->operations.rrb, 2);
-	ft_putstr_fd(" rrr: ", 2);
-	ft_putnbr_fd(data->operations.rrr, 2);
+	ft_print_bench_ops2(data);
+}
+
+void	ft_print_bench(t_data *data)
+{
+	ft_putstr_fd("[bench] disorder: ", 2);
+	ft_putpercent(data->bench.disorder);
 	write(2, "\n", 2);
+	ft_putstr_fd("[bench] strategy: ", 2);
+	ft_putstr_fd(data->bench.strategy, 2);
+	write(2, " / ", 4);
+	ft_putstr_fd(data->bench.algo, 2);
+	write(2, "\n", 2);
+	ft_putstr_fd("[bench] total_ops: ", 2);
+	ft_putnbr_fd(data->bench.total_ops, 2);
+	write(2, "\n", 2);
+	ft_print_bench_ops(data);
 }

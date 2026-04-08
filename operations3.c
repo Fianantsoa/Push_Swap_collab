@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compute_disorder.c                                 :+:      :+:    :+:   */
+/*   operations3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-23 13:26:14 by erakotom          #+#    #+#             */
-/*   Updated: 2026-03-23 13:26:14 by erakotom         ###   ########.fr       */
+/*   Created: 2026-04-07 14:50:48 by erakotom          #+#    #+#             */
+/*   Updated: 2026-04-07 14:50:48 by erakotom         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-float	ft_compute_disorder(t_data *data)
+void	ss(t_data *data)
 {
-	t_list	*tmp;
-	int		mistakes;
-	int		pairs;
+	sa(data);
+	sb(data);
+	data->operations.ss++;
+	print_op("ss", data);
+}
 
-	if (!data->stack_a || !data->stack_a->next)
-		return (0.0);
-	mistakes = 0;
-	pairs = ft_lstsize(data->stack_a) - 1;
-	tmp = data->stack_a;
-	while (tmp->next != NULL)
-	{
-		if (*(int *)(tmp->content) > *(int *)(tmp->next)->content)
-			mistakes++;
-		tmp = tmp->next;
-	}
-	return (((float)mistakes / pairs) * 100);
+void	rr(t_data *data)
+{
+	ra(data);
+	rb(data);
+	data->operations.rr++;
+	print_op("rr", data);
+}
+
+void	rrr(t_data *data)
+{
+	rra(data);
+	rrb(data);
+	data->operations.rrr++;
+	print_op("rrr", data);
 }

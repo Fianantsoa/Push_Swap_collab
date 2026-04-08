@@ -12,7 +12,6 @@
 
 #include "push_swap.h"
 
-
 void	ft_adaptive_selector(t_data *data)
 {
 	if (data->bench.disorder < 20)
@@ -32,19 +31,19 @@ void	ft_adaptive_selector(t_data *data)
 	}
 }
 
-void	ft_algo_selector(t_data *data)
+void	ft_algo_seter(t_data *data)
 {
-	if(ft_strncmp(data->bench.strategy, "Simple", 7) == 0)
+	if (ft_strncmp(data->bench.strategy, "Simple", 7) == 0)
 	{
 		data->bench.algorithm = 1;
 		data->bench.algo = "O(n²)";
 	}
-	else if(ft_strncmp(data->bench.strategy, "Medium", 7) == 0)
+	else if (ft_strncmp(data->bench.strategy, "Medium", 7) == 0)
 	{
 		data->bench.algorithm = 2;
 		data->bench.algo = "O(n√n)";
 	}
-	else if(ft_strncmp(data->bench.strategy, "Complex", 8) == 0)
+	else if (ft_strncmp(data->bench.strategy, "Complex", 8) == 0)
 	{
 		data->bench.algorithm = 3;
 		data->bench.algo = "O(n log n)";
@@ -55,4 +54,19 @@ void	ft_algo_selector(t_data *data)
 	}
 }
 
-
+void	ft_algo_selector(t_data *data)
+{
+	ft_algo_seter(data);
+	if (data->bench.algorithm == 1)
+	{
+		ft_selection_sort(data);
+	}
+	else if (data->bench.algorithm == 2)
+	{
+		ft_selection_sort(data);
+	}
+	else if (data->bench.algorithm == 3)
+	{
+		radix_sort(data);
+	}
+}

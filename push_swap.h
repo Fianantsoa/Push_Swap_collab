@@ -6,27 +6,36 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 07:45:15 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/02 12:33:02 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/08 16:05:32 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+# include "libft.h"
 
-#include "libft.h"
-#include <stdio.h>
+typedef struct s_chunk
+{
+	int	size;
+	int	chunk_count;
+	int	chunk_size;
+	int	current_chunk;
+	int	start;
+	int	end;
+	int	pushed;
+	int	target;
+	int	index;
+}				t_chunk;
 
-typedef struct	bench
+typedef struct bench
 {
 	float	disorder;
 	char	*strategy;
-	int	algorithm;
-	int	total_ops;
-	int	bench_mode;
+	int		algorithm;
+	int		total_ops;
+	int		bench_mode;
 	char	*algo;
-}				s_bench;
+}				t_bench;
 
 typedef struct operations
 {
@@ -41,15 +50,15 @@ typedef struct operations
 	int	rra;
 	int	rrb;
 	int	rrr;
-}				s_operation;
+}				t_operation;
 
-typedef struct	s_data 
+typedef struct s_data
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-	s_bench	bench;
-	s_operation operations;
-}				t_data;
+	t_list			*stack_a;
+	t_list			*stack_b;
+	t_bench			bench;
+	t_operation		operations;
+}					t_data;
 
 void	sa(t_data *data);
 void	sb(t_data *data);
@@ -63,15 +72,21 @@ void	rra(t_data *data);
 void	rrb(t_data *data);
 void	rrr(t_data *data);
 
-
 t_list	*ft_tolist(char **str);
 float	ft_compute_disorder(t_data *data);
 void	ft_selection_sort(t_data *data);
-t_list *parsing(int argc, char **argv, t_data *data);
+t_list	*parsing(int argc, char **argv, t_data *data);
+int		is_valid_int(char *str);
+int		has_duplicates(char **argv);
+void	flag_search(char *argv, t_data *data);
+char	*ft_strjoin_with_space(char *s1, char *s2);
 void	print_op(char *op, t_data *data);
 void	ft_print_bench(t_data *data);
-void    ft_algo_selector(t_data *data);
-
+void	ft_algo_selector(t_data *data);
 void	index_stack(t_data *data);
+void	radix_sort(t_data *data);
+void	push_back_to_a(t_data *data);
+void	push_chunks(t_data *data);
+void	medium(t_data *data);
 
 #endif
