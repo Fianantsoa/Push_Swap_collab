@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 09:57:12 by finoment          #+#    #+#             */
-/*   Updated: 2026/04/02 14:58:23 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/08 17:13:30 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,6 @@ static void	ft_sorted_arr(int *arr, int size)
 	}
 }
 
-// static void ft_print_arr(int *arr)
-// {
-// 	int i = -1;
-// 	printf("Start\n");
-// 	while (arr[++i])
-// 		printf("%d\n", arr[i]);
-// 	printf("End");
-// }
-
 void	index_stack(t_data *data)
 {
 	t_list	*tmp;
@@ -82,7 +73,7 @@ void	index_stack(t_data *data)
 			if (*(int *)tmp->content == arr[i])
 			{
 				*(int *)tmp->content = i;
-				break;
+				break ;
 			}
 			i++;
 		}

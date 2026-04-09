@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo_selector.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-04-01 19:50:04 by erakotom          #+#    #+#             */
-/*   Updated: 2026-04-01 19:50:04 by erakotom         ###   ########.fr       */
+/*   Created: 2026/04/01 19:50:04 by erakotom          #+#    #+#             */
+/*   Updated: 2026/04/09 08:43:23 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_algo_selector(t_data *data)
 	}
 	else if (data->bench.algorithm == 2)
 	{
-		ft_selection_sort(data);
+		medium(data);
 	}
 	else if (data->bench.algorithm == 3)
 	{

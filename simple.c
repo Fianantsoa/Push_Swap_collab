@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-25 13:54:17 by erakotom          #+#    #+#             */
-/*   Updated: 2026-03-25 13:54:17 by erakotom         ###   ########.fr       */
+/*   Created: 2026/03/25 13:54:17 by erakotom          #+#    #+#             */
+/*   Updated: 2026/04/09 09:28:50 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	find_min_pos(t_data *data)
 	return (min_pos);
 }
 
-static void	placement(t_data *data, int min_position)
+static void	bring_min_to_top(t_data *data, int min_position)
 {
 	int	size;
 
@@ -93,7 +93,7 @@ void	ft_selection_sort(t_data *data)
 		return ;
 	while (ft_lstsize(data->stack_a) > 3)
 	{
-		placement(data, find_min_pos(data));
+		bring_min_to_top(data, find_min_pos(data));
 		pb(data);
 	}
 	simple_sort(data);

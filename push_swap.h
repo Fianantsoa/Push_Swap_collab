@@ -6,13 +6,14 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 07:45:15 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/08 16:05:32 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/09 09:40:30 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "libft.h"
+# include <stdio.h>
 
 typedef struct s_chunk
 {

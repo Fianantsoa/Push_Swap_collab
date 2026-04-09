@@ -1,53 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_rotate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/19 00:40:51 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/08 17:11:14 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/08 17:05:35 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sa(t_data *data)
+void	ra(t_data *data)
 {
-	t_list	*first;
-	t_list	*second;
+	t_list	*tmp;
 
 	if (!data->stack_a || !data->stack_a->next)
 		return ;
-	first = data->stack_a;
-	second = first->next;
-	first->next = second->next;
-	second->next = first;
-	data->stack_a = second;
-	data->operations.sa++;
-	print_op("sa", data);
+	tmp = data->stack_a;
+	data->stack_a = data->stack_a->next;
+	tmp->next = NULL;
+	ft_lstadd_back(&data->stack_a, tmp);
+	data->operations.ra++;
+	print_op("ra", data);
 }
 
-void	sb(t_data *data)
+void	rb(t_data *data)
 {
-	t_list	*first;
-	t_list	*second;
+	t_list	*tmp;
 
-	if (!data->stack_b || !data->stack_b->next)
+	if (!data->stack_b ||!data->stack_b->next)
 		return ;
-	first = data->stack_b;
-	second = first->next;
-	first->next = second->next;
-	second->next = first;
-	data->stack_b = second;
-	data->operations.sb++;
-	print_op("sb", data);
+	tmp = data->stack_b;
+	data->stack_b = data->stack_b->next;
+	tmp->next = NULL;
+	ft_lstadd_back(&data->stack_b, tmp);
+	data->operations.rb++;
+	print_op("rb", data);
 }
 
-void	ss(t_data *data)
+void	rr(t_data *data)
 {
-	sa(data);
-	sb(data);
-	data->operations.ss++;
-	print_op("ss", data);
+	ra(data);
+	rb(data);
+	data->operations.rr++;
+	print_op("rr", data);
 }
