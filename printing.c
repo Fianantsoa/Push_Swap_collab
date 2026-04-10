@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bench.c                                            :+:      :+:    :+:   */
+/*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-03-27 12:38:25 by erakotom          #+#    #+#             */
-/*   Updated: 2026-03-27 12:38:25 by erakotom         ###   ########.fr       */
+/*   Created: 2026/03/27 12:38:25 by erakotom          #+#    #+#             */
+/*   Updated: 2026/04/10 12:54:46 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 void	print_op(char *op, t_data *data)
 {

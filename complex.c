@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/07 18:19:57 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/09 09:51:38 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:23:34 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	get_max_bits(int size)
 	int	max_bits;
 
 	max_bits = 0;
-	// On décale le nombre vers la droite jusqu'à ce qu'il soit égal à 0
 	while ((size >> max_bits) != 0)
 		max_bits++;
 	return (max_bits);
@@ -33,7 +32,7 @@ void	radix_sort(t_data *data)
 
 	i = 0;
 	size = ft_lstsize(data->stack_a);
-	max_bits = get_max_bits(size); // Combien de bits pour écrire "size" ?
+	max_bits = get_max_bits(size);
 	while (i < max_bits)
 	{
 		j = 0;

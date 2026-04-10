@@ -1,30 +1,33 @@
 NAME = push_swap
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.c parsing.c parsing_utils.c parsing_utils2.c compute_disorder.c simple.c printing.c ft_swap.c ft_push.c ft_rotate.c ft_reverse_rotate.c algo_selector.c index_stack.c complex.c medium.c medium_utils.c
+SRC = main.c parsing.c parsing_utils.c parsing_utils2.c compute_disorder.c simple.c printing.c \
+      ft_swap.c ft_push.c ft_rotate.c ft_reverse_rotate.c algo_selector.c index_stack.c \
+      complex.c medium.c medium_utils.c
+
 OBJ = $(SRC:.c=.o)
 
-LIBFT = libft.a
+LIBFT = libft/libft.a
 
 all: $(NAME)
 
 $(LIBFT):
-	make -C libft
+	@make -C libft
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(FLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
-# 	make -C libft clean
+	make -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	make clean
+	make -C libft fclean
 
 re: fclean all
 

@@ -6,14 +6,13 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 07:45:15 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/09 09:40:30 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:26:18 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "libft.h"
-# include <stdio.h>
+# include "libft/libft.h"
 
 typedef struct s_chunk
 {
@@ -55,11 +54,11 @@ typedef struct operations
 
 typedef struct s_data
 {
-	t_list			*stack_a;
-	t_list			*stack_b;
-	t_bench			bench;
-	t_operation		operations;
-}					t_data;
+	t_list		*stack_a;
+	t_list		*stack_b;
+	t_bench		bench;
+	t_operation	operations;
+}				t_data;
 
 void	sa(t_data *data);
 void	sb(t_data *data);
@@ -75,7 +74,7 @@ void	rrr(t_data *data);
 
 t_list	*ft_tolist(char **str);
 float	ft_compute_disorder(t_data *data);
-void	ft_selection_sort(t_data *data);
+void	selection_sort(t_data *data);
 t_list	*parsing(int argc, char **argv, t_data *data);
 int		is_valid_int(char *str);
 int		has_duplicates(char **argv);
@@ -84,10 +83,12 @@ char	*ft_strjoin_with_space(char *s1, char *s2);
 void	print_op(char *op, t_data *data);
 void	ft_print_bench(t_data *data);
 void	ft_algo_selector(t_data *data);
-void	index_stack(t_data *data);
+void	reset_stack_a(t_data *data, int *arr, int size);
+int		*index_stack(t_data *data);
 void	radix_sort(t_data *data);
 void	push_back_to_a(t_data *data);
 void	push_chunks(t_data *data);
-void	medium(t_data *data);
+void	chunks_sort(t_data *data);
+void	simple_sort(t_data *data);
 
 #endif

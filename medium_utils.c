@@ -6,70 +6,32 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/08 15:31:18 by finoment          #+#    #+#             */
-/*   Updated: 2026/04/08 16:05:04 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 09:54:39 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_max_pos(t_list *stack_b)
+int	ft_sqrt(int nb)
 {
-	t_list	*tmp;
-	int		max;
-	int		max_pos;
-	int		i;
-	int		value;
+	int	i;
 
-	if (!stack_b)
+	if (nb < 0)
 		return (0);
-	tmp = stack_b;
-	max = *(int *)tmp->content;
-	max_pos = 0;
 	i = 0;
-	while (tmp)
+	while (i * i <= nb)
 	{
-		value = *(int *)tmp->content;
-		if (value > max)
-		{
-			max = value;
-			max_pos = i;
-		}
-		tmp = tmp->next;
+		if (i * i == nb)
+			return (i);
 		i++;
 	}
-	return (max_pos);
-}
-
-void	push_back_to_a(t_data *data)
-{
-	int	max_pos;
-	int	moves;
-
-	while (ft_lstsize(data->stack_b) > 0)
-	{
-		max_pos = find_max_pos(data->stack_b);
-		if (max_pos <= ft_lstsize(data->stack_b) / 2)
-		{
-			while (max_pos-- > 0)
-				rb(data);
-		}
-		else
-		{
-			moves = ft_lstsize(data->stack_b) - max_pos;
-			while (moves-- > 0)
-				rrb(data);
-		}
-		pa(data);
-	}
+	return (i - 1);
 }
 
 static void	init_chunk(t_chunk *c, t_data *data)
 {
 	c->size = ft_lstsize(data->stack_a);
-	if (c->size <= 100)
-		c->chunk_count = 5;
-	else
-		c->chunk_count = 11;
+	c->chunk_count = ft_sqrt(ft_lstsize(data->stack_a) - 1);
 	c->chunk_size = c->size / c->chunk_count;
 	c->current_chunk = 0;
 	c->start = 0;

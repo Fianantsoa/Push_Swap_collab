@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/25 13:54:17 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/09 09:28:50 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:27:54 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	bring_min_to_top(t_data *data, int min_position)
 	}
 }
 
-static void	simple_sort(t_data *data)
+void	simple_sort(t_data *data)
 {
 	int	a;
 	int	b;
@@ -85,7 +85,7 @@ static void	simple_sort(t_data *data)
 		sa(data);
 }
 
-void	ft_selection_sort(t_data *data)
+void	selection_sort(t_data *data)
 {
 	if (!data->stack_a)
 		return ;

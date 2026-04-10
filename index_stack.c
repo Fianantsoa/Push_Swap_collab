@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/02 09:57:12 by finoment          #+#    #+#             */
-/*   Updated: 2026/04/08 17:13:30 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 09:38:03 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,43 @@ static void	ft_sorted_arr(int *arr, int size)
 	}
 }
 
-void	index_stack(t_data *data)
+void	free_stack(t_list *stack)
+{
+	t_list	*tmp;
+
+	while (stack)
+	{
+		tmp = stack->next;
+		free(stack->content);
+		free(stack);
+		stack = tmp;
+	}
+}
+
+void	reset_stack_a(t_data *data, int *arr, int size)
+{
+	int		i;
+	t_list	*node;
+	int		*value;
+
+	free_stack(data->stack_a);
+	data->stack_a = NULL;
+	i = 0;
+	while (i < size)
+	{
+		value = malloc(sizeof(int));
+		if (!value)
+			return ;
+		*value = arr[i];
+		node = ft_lstnew(value);
+		if (!node)
+			return ;
+		ft_lstadd_back(&data->stack_a, node);
+		i++;
+	}
+}
+
+int	*index_stack(t_data *data)
 {
 	t_list	*tmp;
 	int		size;
@@ -79,5 +115,5 @@ void	index_stack(t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	free(arr);
+	return (arr);
 }

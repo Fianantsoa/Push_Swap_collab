@@ -6,7 +6,7 @@
 /*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 19:50:04 by erakotom          #+#    #+#             */
-/*   Updated: 2026/04/09 08:43:23 by finoment         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:24:24 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,27 @@ void	ft_algo_seter(t_data *data)
 
 void	ft_algo_selector(t_data *data)
 {
+	int	*array;
+
 	ft_algo_seter(data);
 	if (data->bench.algorithm == 1)
 	{
-		ft_selection_sort(data);
+		selection_sort(data);
 	}
 	else if (data->bench.algorithm == 2)
 	{
-		medium(data);
+		chunks_sort(data);
 	}
 	else if (data->bench.algorithm == 3)
 	{
+		array = index_stack(data);
+		if (ft_lstsize(data->stack_a) <= 5)
+		{
+			selection_sort(data);
+			return ;
+		}
 		radix_sort(data);
+		reset_stack_a(data, array, ft_lstsize(data->stack_a));
+		free(array);
 	}
 }

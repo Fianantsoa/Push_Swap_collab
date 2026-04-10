@@ -2,30 +2,30 @@
 
 ## Description
 
-`push_swap` is a project in the 42 curriculum that aims to **sort a stack of integers using a limited set of operations** and **minimize the number of moves**.
+`push_swap` is a project in the 42 curriculum that aims to **sort a stack of integers using a limited set of operations** while **minimizing the number of moves**.
 
-The main goal is to create a program:
+The program takes a list of integers as arguments:
 
 ```bash
 ./push_swap [integers...]
 ```
 
-The program receives a list of integers as command-line arguments and outputs a series of operations that sorts the stack in ascending order. The operations allowed are:
+It outputs a sequence of operations that sorts the stack in ascending order.
+
+The allowed operations are:
 
 * `sa`, `sb`, `ss` — swap the first two elements of a stack
-* `pa`, `pb` — push the top element from one stack to the other
+* `pa`, `pb` — push the top element from one stack to another
 * `ra`, `rb`, `rr` — rotate a stack upward
 * `rra`, `rrb`, `rrr` — reverse rotate a stack downward
 
-This project helps you understand and master:
+This project helps to understand:
 
-* Stack manipulation using arrays or linked lists
-* Algorithmic optimization (reducing the number of moves)
-* Conditional logic and decision-making
-* Handling edge cases and input validation
-* Memory management in C
-
-In summary, `push_swap` is a fundamental C algorithmic project that develops your understanding of data structures, sorting logic, and efficient computation.
+* Stack manipulation using linked lists
+* Algorithmic optimization under constraints
+* Adaptive algorithm selection
+* Input validation and memory management
+* Performance benchmarking
 
 ---
 
@@ -33,32 +33,24 @@ In summary, `push_swap` is a fundamental C algorithmic project that develops you
 
 ### Installation
 
-First, clone the repository:
+Clone the repository:
 
 ```bash
-git clone git@vogsphere.42antananarivo.mg:vogsphere/intra-uuid-xxxx push_swap
+git clone <repository_url> push_swap
 cd push_swap
-```
-
-> Note: The repository URL may change depending on the project or user.
-> The general format is:
-
-```bash
-git clone <repository_url> <folder_name>
-cd <folder_name>
 ```
 
 ---
 
-### Usage
+### Compilation
 
-Compile your project using the Makefile:
+Compile the project using:
 
 ```bash
 make
 ```
 
-This will generate the executable:
+This generates the executable:
 
 ```bash
 ./push_swap
@@ -66,32 +58,79 @@ This will generate the executable:
 
 ---
 
-Run your program with a list of integers:
+### Usage
+
+Run the program with a list of integers:
 
 ```bash
 ./push_swap 3 2 5 1 4
 ```
 
-Example output:
+---
+
+### Available options
+
+The program supports different execution modes:
+
+#### 🔹 Default mode (Adaptive)
 
 ```bash
-pb
-pb
-sa
-pa
-pa
+./push_swap 3 2 5 1 4
 ```
 
-> Each line represents an operation used to sort the stack with the minimal number of moves.
+* Automatically selects algorithm based on disorder
+* Uses `ft_compute_disorder`
+* Chooses best strategy dynamically
 
 ---
 
-### Additional commands
+#### 🔹 Manual algorithm selection
 
 ```bash
-make clean      # Remove object files
-make fclean     # Remove object files and executable
-make re         # Recompile the project
+./push_swap --simple [integers...]
+```
+
+* Forces **Selection Sort (O(n²))**
+
+```bash
+./push_swap --medium [integers...]
+```
+
+* Forces **Chunk Sort (O(n√n))**
+
+```bash
+./push_swap --complex [integers...]
+```
+
+* Forces **Radix Sort (O(n log n))**
+
+---
+
+#### 🔹 Benchmark mode
+
+```bash
+./push_swap --bench [integers...]
+```
+
+At the end of execution, displays statistics:
+
+```bash
+[bench] disorder: 49.75%
+[bench] strategy: Complex / O(n log n)
+[bench] total_ops: 15068
+[bench] sa: 0 sb: 0 ss: 0 pa: 5068 pb: 5068
+[bench] ra: 4932 rb: 0 rr: 0 rra: 0 rrb: 0 rrr: 0
+```
+
+---
+
+### Makefile rules
+
+```bash
+make        # compile project
+make clean  # remove object files
+make fclean # remove objects + binary
+make re     # recompile everything
 ```
 
 ---
@@ -100,73 +139,227 @@ make re         # Recompile the project
 
 ### Classic References
 
-* Linux manual pages (`man malloc`, `man write`, `man exit`)
-* W3Schools — C programming tutorials [https://www.w3schools.com/c/](https://www.w3schools.com/c/)
+* 42 push_swap subject
+* Linux manual pages
+* W3Schools — C programming [https://www.w3schools.com/c/](https://www.w3schools.com/c/)
 * Tutorialspoint C [https://www.tutorialspoint.com/cprogramming/index.htm](https://www.tutorialspoint.com/cprogramming/index.htm)
+
+---
 
 ### AI Usage
 
-AI is used solely as an educational tool to understand `push_swap` logic and structure documentation. It does not implement code or make algorithmic decisions.
+AI tools were used for:
 
-* Helps explain stack operations and sorting logic
-* Assists in understanding algorithm optimization
-* Clarifies project constraints and edge cases
+* Understanding sorting algorithms (selection sort, chunk sort, radix sort)
+* Structuring documentation
+* Explaining algorithm complexity and optimization strategies
+* Improving README clarity and structure
 
-All code is manually implemented by the students.
+All code and algorithm design were implemented manually.
 
 ---
 
 ## Algorithm and Data Structure Explanation
 
-### 🧩 Algorithm Explanation
+---
 
-#### Algorithm Structure
+## Global Strategy
 
-1. **Input validation**:
+The project uses an **adaptive sorting system** that selects the best algorithm depending on:
 
-   * Parse command-line arguments and check for invalid integers or duplicates.
-   * Return an error if the input is invalid.
-
-2. **Stack initialization**:
-
-   * Store integers in a **stack A**.
-   * Initialize **stack B** as empty.
-
-3. **Sorting logic**:
-
-   * Depending on the size of the stack, apply different sorting strategies:
-
-     * Small stacks (2–5 elements): hardcoded minimal moves
-     * Larger stacks: optimized algorithm using rotations, swaps, and pushes
-
-4. **Operations execution**:
-
-   * Push, swap, rotate, and reverse rotate operations manipulate stacks according to the sorting strategy.
-   * Record and print operations in the order they are executed.
-
-5. **Utility functions**:
-
-   * Functions like `swap()`, `push()`, `rotate()`, and `reverse_rotate()` are implemented separately in utility files to maintain clean code and readability.
+* Level of disorder (`ft_compute_disorder`)
+* Execution mode (simple / medium / complex / adaptive)
 
 ---
 
-#### Algorithm Justification
+## Execution Modes
 
-* **Efficiency**: Uses minimal moves for stack sorting.
-* **Modularity**: Stack operations are separated into utility functions.
-* **Scalability**: Handles small and large inputs with appropriate algorithms.
-* **Memory safety**: Proper dynamic allocation and deallocation prevent leaks.
-* **Compliance with 42 standards**: Meets all project requirements (sorting with stack operations, input validation, optimized moves).
+The program supports 4 modes:
+
+### 🔹 `--simple`
+
+Forces **Selection Sort**
+
+* Complexity: O(n²)
+* Best for nearly sorted inputs
 
 ---
 
-#### Simplified Algorithm Diagram
+### 🔹 `--medium`
+
+Forces **Chunk-Based Sorting**
+
+* Complexity: O(n√n)
+* Best for medium disorder
+
+---
+
+### 🔹 `--complex`
+
+Forces **Radix Sort**
+
+* Complexity: O(n log n)
+* Best for large / chaotic inputs
+
+---
+
+### 🔹 `--bench` (default optional debug mode)
+
+Displays performance statistics:
+
+* disorder percentage
+* selected strategy
+* total operations
+* operation breakdown
+
+---
+
+## Benchmark Mode (Adaptive Rules)
+
+When using `--adaptive` (default mode), the algorithm is selected using disorder:
+
+| Disorder Level  | Condition            | Complexity | Algorithm      |
+| --------------- | -------------------- | ---------- | -------------- |
+| Low disorder    | disorder < 0.2       | O(n²)      | Selection Sort |
+| Medium disorder | 0.2 ≤ disorder < 0.5 | O(n√n)     | Chunk Sort     |
+| High disorder   | disorder ≥ 0.5       | O(n log n) | Radix Sort     |
+
+---
+
+## 🔹 1. Selection Sort (Low Disorder)
+
+* Find smallest element
+* Place it correctly
+* Repeat until sorted
+
+✔ Efficient for nearly sorted stacks
+✔ Minimal overhead
+
+---
+
+## 🔹 2. Chunk-Based Sorting (Medium Disorder)
+
+* Split stack into chunks (`t_chunk`)
+* Push A → B by range
+* Optimize rotations
+* Rebuild sorted stack
+
+✔ Balanced performance
+✔ Reduces unnecessary moves
+
+---
+
+## 🔹 3. Radix Sort (High Disorder)
+
+* Index values (`index_stack`)
+* Sort bit by bit
+* Move elements between stacks based on binary bits
+
+✔ Very fast for large inputs
+✔ Stable and predictable
+
+---
+
+## Algorithm Selection
+
+Function `ft_algo_selector`:
+
+1. Check CLI flags (`--simple`, `--medium`, `--complex`, `--adaptive`)
+2. Compute disorder if needed
+3. Select algorithm
+4. Execute sorting
+
+---
+
+## Data Structures
+
+### Main structure
+
+```c
+typedef struct s_data
+{
+    t_list      *stack_a;
+    t_list      *stack_b;
+    t_bench     bench;
+    t_operation operations;
+} t_data;
+```
+
+---
+
+### Additional structures
+
+* `t_chunk` → chunk management (start, end, size)
+* `t_bench` → disorder, strategy, stats
+* `t_operation` → counts each operation
+
+---
+
+## Benchmark System
+
+Tracked values:
+
+* total operations
+* operation breakdown (`sa`, `pb`, `ra`, etc.)
+* selected algorithm
+* disorder percentage
+
+Function:
+
+* `ft_print_bench()` → prints benchmark report
+
+---
+
+## Algorithm Justification
+
+This design ensures:
+
+* Full control over algorithm choice
+* Optimal performance per input type
+* Clear separation between strategies
+* Scalable architecture
+* Compliance with 42 constraints
+
+---
+
+## Execution Flow
 
 ```
-[input args] ---> validate input ---> stack A
-                               \
-                                ---> stack B (temporary)
-sort algorithm ---> execute operations ---> output operations
+Input arguments
+        ↓
+Parse flags (--simple / --medium / --complex / --adaptive / --bench)
+        ↓
+Validate input
+        ↓
+Select algorithm
+        ↓
+Execute sorting
+        ↓
+Optional benchmark output
 ```
 
 ---
+
+## Contributions
+
+This project was developed collaboratively. Each member contributed to different parts of the implementation, design, and optimization.
+
+__erakotom__
+* Implementation of core stack operations (sa, pb, ra, etc.)
+* Development of selection sort algorithm
+* Parsing and input validation
+* Initial project structure and architecture
+* Benchmark system (t_bench, --bench mode)
+
+__finoment__
+* Implementation of chunk-based sorting algorithm
+* Development of adaptive algorithm selector (ft_algo_selector)
+* Memory management and error handling
+* Writing and structuring documentation
+* Creation and maintenance of the Makefile
+
+__Shared work__
+* Definition of project architecture and data structures (t_data, t_chunk, etc.)
+* Debugging and performance improvements
+* Testing on different input sizes and edge cases
+* Implementation of radix sort algorithm

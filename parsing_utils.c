@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erakotom <erakotom@student.42.fr>          #+#  +:+       +#+        */
+/*   By: finoment <finoment@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-04-07 13:17:55 by erakotom          #+#    #+#             */
-/*   Updated: 2026-04-07 13:17:55 by erakotom         ###   ########.fr       */
+/*   Created: 2026/04/07 13:17:55 by erakotom          #+#    #+#             */
+/*   Updated: 2026/04/10 13:29:18 by finoment         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
